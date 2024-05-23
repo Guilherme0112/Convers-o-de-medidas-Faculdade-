@@ -1,79 +1,25 @@
 #Projeto de Medidas em Geral
 def celsius_para_fahrenheit(celsius):
-  """
-  Converte Celsius para Fahrenheit (sem bibliotecas).
-
-  Argumento:
-    celsius: Valor em Celsius (float).
-
-  Retorno:
-    Valor em Fahrenheit (float).
-  """
   fahrenheit = (celsius * 9) / 5 + 32
   return fahrenheit
 
 def fahrenheit_para_celsius(fahrenheit):
-  """
-  Converte Fahrenheit para Celsius (sem bibliotecas).
-
-  Argumento:
-    fahrenheit: Valor em Fahrenheit (float).
-
-  Retorno:
-    Valor em Celsius (float).
-  """
   celsius = (fahrenheit - 32) * 5 / 9
   return celsius
 
 def celsius_para_kelvin(celsius):
-  """
-  Converte Celsius para Kelvin (sem bibliotecas).
-
-  Argumento:
-    celsius: Valor em Celsius (float).
-
-  Retorno:
-    Valor em Kelvin (float).
-  """
   kelvin = celsius + 273.15
   return kelvin
 
 def kelvin_para_celsius(kelvin):
-  """
-  Converte Kelvin para Celsius (sem bibliotecas).
-
-  Argumento:
-    kelvin: Valor em Kelvin (float).
-
-  Retorno:
-    Valor em Celsius (float).
-  """
   celsius = kelvin - 273.15
   return celsius
 
 def fahrenheit_para_kelvin(fahrenheit):
-  """
-  Converte Fahrenheit para Kelvin (sem bibliotecas).
-
-  Argumento:
-    fahrenheit: Valor em Fahrenheit (float).
-
-  Retorno:
-    Valor em Kelvin (float).
-  """
   kelvin = (fahrenheit + 459.67) * 5 / 9
   return kelvin
 
 def kelvin_para_fahrenheit(kelvin):
-  """
-  Converte Kelvin para Fahrenheit (sem bibliotecas).
-
-  Argumento:
-    kelvin: Valor em Kelvin (float).
-
-  Retorno:
-    Valor em Fahrenheit (float).
-  """
   fahrenheit = (kelvin - 273.15) * 9 / 5 + 32
   return fahrenheit
 
