@@ -26,8 +26,7 @@ def kelvin_para_fahrenheit(kelvin):
 
 print('''
     [1] Distância
-    [2] Tempo
-    [3] Temperatura
+    [2] Temperatura
 ''')
 start = input('Qual opção você deseja? ').upper().strip() [0]
 print('=-' * 30)
@@ -95,15 +94,8 @@ while True:
                 print(f'{medida} centímetros são {centimetros} metros!')
                 print('=-' * 30)
             break
-    elif start == '2':
-        print('bloco2')
-        break
-    elif start == '3':
-        print('bloco3')
-        break
-
-if start == '3':  # Opção Temperatura
-  print('''
+    elif start == '2':  # Opção Temperatura
+         print('''
       [1] Celsius para Fahrenheit
       [2] Fahrenheit para Celsius
       [3] Celsius para Kelvin
@@ -152,4 +144,3 @@ elif opcao_temperatura == '6':  # Kelvin para Fahrenheit
 
 else:
     ("Opçaõ inválida")
-   
