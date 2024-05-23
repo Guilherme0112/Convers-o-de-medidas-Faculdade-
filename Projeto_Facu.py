@@ -95,52 +95,51 @@ while True:
                 print('=-' * 30)
             break
     elif start == '2':  # Opção Temperatura
-         print('''
-      [1] Celsius para Fahrenheit
-      [2] Fahrenheit para Celsius
-      [3] Celsius para Kelvin
-      [4] Kelvin para Celsius
-      [5] Fahrenheit para Kelvin
-      [6] Kelvin para Fahrenheit
-  ''')
+        print('''
+        [1] Celsius para Fahrenheit
+        [2] Fahrenheit para Celsius
+        [3] Celsius para Kelvin
+        [4] Kelvin para Celsius
+        [5] Fahrenheit para Kelvin
+        [6] Kelvin para Fahrenheit
+        ''')
+        opcao_temperatura = input('Qual conversão você deseja? ').upper().strip() [0]
+        print('=-' * 30)
 
-  opcao_temperatura = input('Qual conversão você deseja? ').upper().strip() [0]
-  print('=-' * 30)
+        if opcao_temperatura == '1':  # Celsius para Fahrenheit
+            medida_celsius = float(input('Digite a temperatura em Celsius: '))
+            resultado_fahrenheit = celsius_para_fahrenheit (medida_celsius)
+            print(f'{medida_celsius}°C equivalem a {resultado_fahrenheit:.2f}°F')
 
-  if opcao_temperatura == '1':  # Celsius para Fahrenheit
-    medida_celsius = float(input('Digite a temperatura em Celsius: '))
-    resultado_fahrenheit = celsius_para_fahrenheit (medida_celsius)
-    print(f'{medida_celsius}°C equivalem a {resultado_fahrenheit:.2f}°F')
+        if opcao_temperatura == "2": #Fahrenheit para Celsius
+            medida_fahrenheit = float(input("Digite a temperatura em fahrenheit: "))
+            resultado_celsius = fahrenheit_para_celsius(medida_fahrenheit)
+            print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_celsius:.2f}°C')
 
-if opcao_temperatura == "2": #Fahrenheit para Celsius
-        medida_fahrenheit = float(input("Digite a temperatura em fahrenheit: "))
-        resultado_celsius = fahrenheit_para_celsius(medida_fahrenheit)
-        print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_celsius:.2f}°C')
+        elif opcao_temperatura == '3':  # Celsius para Kelvin
+            medida_celsius = float(input('Digite a temperatura em Celsius: '))
+            resultado_kelvin = celsius_para_kelvin(medida_celsius)
+            print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
 
-elif opcao_temperatura == '3':  # Celsius para Kelvin
-    medida_celsius = float(input('Digite a temperatura em Celsius: '))
-    resultado_kelvin = celsius_para_kelvin(medida_celsius)
-    print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
+        elif opcao_temperatura == '3':  # Celsius para Kelvin
+            medida_celsius = float(input('Digite a temperatura em Celsius: '))
+            resultado_kelvin = celsius_para_kelvin(medida_celsius)
+            print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
 
-elif opcao_temperatura == '3':  # Celsius para Kelvin
-    medida_celsius = float(input('Digite a temperatura em Celsius: '))
-    resultado_kelvin = celsius_para_kelvin(medida_celsius)
-    print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
+        elif opcao_temperatura == '4':  # Kelvin para Celsius
+            medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
+            resultado_celsius = kelvin_para_celsius(medida_kelvin)
+            print(f'{medida_kelvin:.2f}K equivalem a {resultado_celsius:.2f}°C')
 
-elif opcao_temperatura == '4':  # Kelvin para Celsius
-    medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
-    resultado_celsius = kelvin_para_celsius(medida_kelvin)
-    print(f'{medida_kelvin:.2f}K equivalem a {resultado_celsius:.2f}°C')
+        elif opcao_temperatura == '5':
+          medida_fahrenheit = float(input('Digite a temperatura em Fahrenheit: '))
+          resultado_kelvin = fahrenheit_para_kelvin(medida_fahrenheit)
+          print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_kelvin:.2f}K')
 
-elif opcao_temperatura == '5':
-  medida_fahrenheit = float(input('Digite a temperatura em Fahrenheit: '))
-  resultado_kelvin = fahrenheit_para_kelvin(medida_fahrenheit)
-  print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_kelvin:.2f}K')
+        elif opcao_temperatura == '6':  # Kelvin para Fahrenheit
+          medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
+          resultado_fahrenheit = kelvin_para_fahrenheit(medida_kelvin)
+          print(f'{medida_kelvin:.2f}K equivalem a {resultado_fahrenheit:.2f}°F')
 
-elif opcao_temperatura == '6':  # Kelvin para Fahrenheit
-  medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
-  resultado_fahrenheit = kelvin_para_fahrenheit(medida_kelvin)
-  print(f'{medida_kelvin:.2f}K equivalem a {resultado_fahrenheit:.2f}°F')
-
-else:
-    ("Opçaõ inválida")
+    else:
+        ("Opçaõ inválida")
