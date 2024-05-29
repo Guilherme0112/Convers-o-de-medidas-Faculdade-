@@ -27,6 +27,7 @@ def kelvin_para_fahrenheit(kelvin):
 print('''
     [1] Distância
     [2] Temperatura
+    [3] Moeda
 ''')
 start = input('Qual opção você deseja? ').upper().strip() [0]
 print('=-' * 30)
@@ -140,6 +141,77 @@ while True:
           medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
           resultado_fahrenheit = kelvin_para_fahrenheit(medida_kelvin)
           print(f'{medida_kelvin:.2f}K equivalem a {resultado_fahrenheit:.2f}°F')
+    
+
+    if start == '3':  # Opção Moeda
+        print('''
+        ### CONVERTER DE: ###
+        [1] Real
+        [2] Euro
+        [3] Dolar
+        ''')
+        conveter_De = input('Selecione a opção que deseja fazer a conversão:\n ').upper().strip() [0]
+        print('=-' * 30)
+        
+        if conveter_De == '1':   # Opção em Real
+            valor = float(input('Digite o valor em Real que deseja converter:\n '))
+
+            print('=-' * 30)
+            print('''
+                [1] Euro
+                [2] Dolar
+            ''')
+            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
+            if converter_Para == '1':
+                euro = 5.80
+                res = valor / euro
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \nR${valor} convertido para Euro: €{res_formatado}')
+            elif converter_Para == '2':
+                dolar = 5.15
+                res = valor / dolar
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \nR${valor} convertido para Dolar: US${res_formatado}')
+        
+        elif conveter_De == '2':  #Opção em Euro
+            valor = float(input('Digite o valor em Euro que deseja converter:\n'))
+
+            print('=-' * 30)
+            print('''
+                [1] Real
+                [2] Dolar
+            ''')
+            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
+            if converter_Para == '1':
+                real = 5.61
+                res = valor * real
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \n€{valor} convertido para Real: R${res_formatado}')
+            elif converter_Para == '2':
+                dolar = 1.09
+                res = valor * dolar
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \n€{valor} convertido para Dolar: US${res_formatado}')
+        
+        elif conveter_De == '3':  #Opção em Dolar
+            valor = float(input('Digite o valor em Dolar que deseja converter:\n'))
+
+            print('=-' * 30)
+            print('''
+                [1] Real
+                [2] Euro
+            ''')
+            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
+            if converter_Para == '1':
+                real = 5.16
+                res = valor * real
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \nUS${valor} convertido para Real: R${res_formatado}')
+            elif converter_Para == '2':
+                euro = 0.92
+                res = valor * euro
+                res_formatado = "{:.2f}".format(res)
+                print(f'### RESUTALDO ### \nUS${valor} convertido para Euro: €{res_formatado}')
 
     else:
         ("Opçaõ inválida")
