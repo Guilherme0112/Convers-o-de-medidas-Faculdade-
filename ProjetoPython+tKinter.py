@@ -119,6 +119,71 @@ def show_temperature_conversion():
     back_button = tk.Button(temperature_window, text="VOLTAR", command=temperature_window.destroy)
     back_button.pack(pady=10)
 
+def show_currency_conversion():
+    def calculate_currency_conversion():
+        from_currency = from_currency_var.get()
+        to_currency = to_currency_var.get()
+        value = currency_entry.get()
+
+        if not value:
+            messagebox.showerror("ERRO", "Por favor, insira um valor.")
+            return
+
+        try:
+            value = float(value)
+        except ValueError:
+            messagebox.showerror("ERRO", "Por favor, insira um valor numérico.")
+            return
+
+        conversion_rates = {
+            ("Real", "Dólar"): 0.19, #Cotação do dia 30/05/2024
+            ("Real", "Euro"): 0.18,
+            ("Dólar", "Real"): 5.20,
+            ("Dólar", "Euro"): 0.92,
+            ("Euro", "Real"): 5.64,
+            ("Euro", "Dólar"): 1.08,
+            ("Real", "Real"): 1.00,
+            ("Dólar", "Dólar"): 1.00,
+            ("Euro", "Euro"): 1.00
+        }
+
+        if (from_currency, to_currency) in conversion_rates:
+            rate = conversion_rates[(from_currency, to_currency)]
+            result = value * rate
+        else:
+            messagebox.showerror("ERRO", "Taxa de conversão não encontrada.")
+            return
+
+        result_label.config(text=f"Resultado: {result:.2f} {to_currency}")
+
+    currency_window = tk.Toplevel(root)
+    currency_window.title("Conversor de Moedas")
+    currency_window.geometry("400x400")
+
+    currencies = ["Real", "Dólar", "Euro"]
+
+    from_currency_var = tk.StringVar(currency_window)
+    from_currency_var.set("SELECIONE A MOEDA:")
+    from_currency_menu = tk.OptionMenu(currency_window, from_currency_var, *currencies)
+    from_currency_menu.pack(pady=10)
+
+    to_currency_var = tk.StringVar(currency_window)
+    to_currency_var.set("CONVERTER PARA:")
+    to_currency_menu = tk.OptionMenu(currency_window, to_currency_var, *currencies)
+    to_currency_menu.pack(pady=10)
+
+    currency_entry = tk.Entry(currency_window)
+    currency_entry.pack(pady=10)
+
+    calculate_button = tk.Button(currency_window, text="CONVERTER", command=calculate_currency_conversion)
+    calculate_button.pack(pady=10)
+
+    result_label = tk.Label(currency_window, text="")
+    result_label.pack(pady=10)
+
+    back_button = tk.Button(currency_window, text="VOLTAR", command=currency_window.destroy)
+    back_button.pack(pady=10)
+
 def show_calculator():
     def calculate_operation():
         num1 = num1_entry.get()
@@ -193,17 +258,18 @@ menu = tk.Menu(root)
 root.config(menu=menu)
 
 conversion_menu = tk.Menu(menu, tearoff=0)
-menu.add_cascade(label="CONVERTER MEDIDAS", menu=conversion_menu)
-conversion_menu.add_command(label="DISTÂNCIA", command=show_distance_conversion)
-conversion_menu.add_command(label="TEMPERATURA", command=show_temperature_conversion)
+menu.add_cascade(label="Converter Medidas", menu=conversion_menu)
+conversion_menu.add_command(label="Distância", command=show_distance_conversion)
+conversion_menu.add_command(label="Temperatura", command=show_temperature_conversion)
+conversion_menu.add_command(label="Moedas", command=show_currency_conversion)
 
 calculator_menu = tk.Menu(menu, tearoff=0)
-menu.add_cascade(label="CALCULADORA", menu=calculator_menu)
-calculator_menu.add_command(label="ABRIR", command=show_calculator)
+menu.add_cascade(label="Calculadora", menu=calculator_menu)
+calculator_menu.add_command(label="Abrir", command=show_calculator)
 
 menu.add_separator()
 
-menu.add_command(label="FINALIZAR", command=confirm_exit)
+menu.add_command(label="Finalizar", command=confirm_exit)
 
 root.mainloop()
 
