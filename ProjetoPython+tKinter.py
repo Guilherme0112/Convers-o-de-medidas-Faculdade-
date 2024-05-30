@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
+#Conversor de Medidas Sistema Métrico
 def show_distance_conversion():
     def calculate_distance_conversion():
         from_unit = from_unit_var.get()
@@ -18,9 +19,9 @@ def show_distance_conversion():
             return
 
         conversion_factors = {
-            "Quilômetros": {"Metros": 1000, "Centímetros": 100000},
-            "Metros": {"Quilômetros": 1/1000, "Centímetros": 100},
-            "Centímetros": {"Quilômetros": 1/100000, "Metros": 1/100}
+            "Quilômetros": {"Metros": 1000, "Centímetros": 100000}, #De M para CM
+            "Metros": {"Quilômetros": 1/1000, "Centímetros": 100}, #DE KM para CM
+            "Centímetros": {"Quilômetros": 1/100000, "Metros": 1/100} #DE KM para M
         }
 
         if from_unit == to_unit:
@@ -58,6 +59,7 @@ def show_distance_conversion():
     back_button = tk.Button(distance_window, text="VOLTAR", command=distance_window.destroy)
     back_button.pack(pady=10)
 
+#Conversor de Temperaturas (C, K e F)
 def show_temperature_conversion():
     def calculate_temperature_conversion():
         from_unit = from_unit_var.get()
@@ -76,17 +78,17 @@ def show_temperature_conversion():
 
         if from_unit == to_unit:
             result = value
-        elif from_unit == "Celsius" and to_unit == "Fahrenheit":
+        elif from_unit == "Celsius" and to_unit == "Fahrenheit": #Celsius para Fahren.
             result = (value * 9/5) + 32
-        elif from_unit == "Fahrenheit" and to_unit == "Celsius":
+        elif from_unit == "Fahrenheit" and to_unit == "Celsius": #Fahren. para Celsius
             result = (value - 32) * 5/9
-        elif from_unit == "Celsius" and to_unit == "Kelvin":
+        elif from_unit == "Celsius" and to_unit == "Kelvin": #Celsius para Kelvin
             result = value + 273.15
-        elif from_unit == "Kelvin" and to_unit == "Celsius":
+        elif from_unit == "Kelvin" and to_unit == "Celsius": #Kelvin para Celsius
             result = value - 273.15
-        elif from_unit == "Fahrenheit" and to_unit == "Kelvin":
+        elif from_unit == "Fahrenheit" and to_unit == "Kelvin": #Fahren. para Kelvin
             result = (value + 459.67) * 5/9
-        elif from_unit == "Kelvin" and to_unit == "Fahrenheit":
+        elif from_unit == "Kelvin" and to_unit == "Fahrenheit": #Kelvin para Fahren.
             result = (value - 273.15) * 9/5 + 32
 
         result_label.config(text=f"Resultado: {result:.2f} {to_unit}")
@@ -119,6 +121,7 @@ def show_temperature_conversion():
     back_button = tk.Button(temperature_window, text="VOLTAR", command=temperature_window.destroy)
     back_button.pack(pady=10)
 
+#Conversor de Moedas
 def show_currency_conversion():
     def calculate_currency_conversion():
         from_currency = from_currency_var.get()
@@ -135,16 +138,16 @@ def show_currency_conversion():
             messagebox.showerror("ERRO", "Por favor, insira um valor numérico.")
             return
 
-        conversion_rates = {
-            ("Real", "Dólar"): 0.19, #Cotação do dia 30/05/2024
-            ("Real", "Euro"): 0.18,
-            ("Dólar", "Real"): 5.20,
-            ("Dólar", "Euro"): 0.92,
-            ("Euro", "Real"): 5.64,
-            ("Euro", "Dólar"): 1.08,
-            ("Real", "Real"): 1.00,
-            ("Dólar", "Dólar"): 1.00,
-            ("Euro", "Euro"): 1.00
+        conversion_rates = { #Cotação do dia 30/05/2024
+            ("Real", "Dólar"): 0.19, #Real para Dólar
+            ("Real", "Euro"): 0.18, #Real para Euro
+            ("Dólar", "Real"): 5.20, #Dólar para Real
+            ("Dólar", "Euro"): 0.92, #Dólar para Euro
+            ("Euro", "Real"): 5.64, #Euro para Real
+            ("Euro", "Dólar"): 1.08, #Euro para Dólar
+            ("Real", "Real"): 1.00, #Real - Real
+            ("Dólar", "Dólar"): 1.00, #Dólar - Dólar
+            ("Euro", "Euro"): 1.00 #Euro - Euro
         }
 
         if (from_currency, to_currency) in conversion_rates:
@@ -157,7 +160,7 @@ def show_currency_conversion():
         result_label.config(text=f"Resultado: {result:.2f} {to_currency}")
 
     currency_window = tk.Toplevel(root)
-    currency_window.title("Conversor de Moedas")
+    currency_window.title("CONVERSOR DE MOEDAS")
     currency_window.geometry("400x400")
 
     currencies = ["Real", "Dólar", "Euro"]
@@ -201,13 +204,13 @@ def show_calculator():
             messagebox.showerror("ERRO", "Por favor, insira valores numéricos válidos.")
             return
 
-        if operation == "SOMA":
+        if operation == "SOMA": #Soma
             result = num1 + num2
-        elif operation == "SUBTRAÇÃO":
+        elif operation == "SUBTRAÇÃO": #Subtração
             result = num1 - num2
-        elif operation == "MULTIPLICAÇÃO":
+        elif operation == "MULTIPLICAÇÃO": #Multiplicação
             result = num1 * num2
-        elif operation == "DIVISÃO":
+        elif operation == "DIVISÃO": #Divisão
             if num2 == 0:
                 messagebox.showerror("ERRO", "Divisão por zero não é permitida!")
                 return
@@ -251,25 +254,26 @@ def confirm_exit():
         root.destroy()
 
 root = tk.Tk()
-root.title("CONVERSOR E CALCULADORA PYTHON")
+root.title("CONVERSOR DE MEDIDAS E CALCULADORA")
 root.geometry("400x400")
 
 menu = tk.Menu(root)
 root.config(menu=menu)
 
 conversion_menu = tk.Menu(menu, tearoff=0)
-menu.add_cascade(label="Converter Medidas", menu=conversion_menu)
-conversion_menu.add_command(label="Distância", command=show_distance_conversion)
-conversion_menu.add_command(label="Temperatura", command=show_temperature_conversion)
-conversion_menu.add_command(label="Moedas", command=show_currency_conversion)
+menu.add_cascade(label="CONVERTER MEDIDAS", menu=conversion_menu)
+conversion_menu.add_command(label="DISTÂNCIA", command=show_distance_conversion)
+conversion_menu.add_command(label="TEMPERATURA", command=show_temperature_conversion)
+conversion_menu.add_command(label="MOEDAS", command=show_currency_conversion)
 
 calculator_menu = tk.Menu(menu, tearoff=0)
-menu.add_cascade(label="Calculadora", menu=calculator_menu)
-calculator_menu.add_command(label="Abrir", command=show_calculator)
+menu.add_cascade(label="CALCULADORA", menu=calculator_menu)
+calculator_menu.add_command(label="ABRIR", command=show_calculator)
 
 menu.add_separator()
 
-menu.add_command(label="Finalizar", command=confirm_exit)
+menu.add_command(label="FINALIZAR", command=confirm_exit)
 
 root.mainloop()
 
+#CSTSI Unipê. P1 (Primeiro Período). Projeto Prático - GRUPO 1: Daniel Coimbra, Eduardo Honório, Gabryell Coutinho, Guilherme Gomes, Lucyano Fellipe e Matheus Albuquerque.
