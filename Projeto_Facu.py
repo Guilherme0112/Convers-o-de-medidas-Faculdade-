@@ -1,4 +1,4 @@
-#Projeto de Medidas em Geral
+#Projeto de Medidas métricas 
 def celsius_para_fahrenheit(celsius):
   fahrenheit = (celsius * 9) / 5 + 32
   return fahrenheit
