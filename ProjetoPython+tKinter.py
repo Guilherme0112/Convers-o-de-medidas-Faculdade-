@@ -277,3 +277,14 @@ menu.add_command(label="FINALIZAR", command=confirm_exit)
 root.mainloop()
 
 #CSTSI Unipê. P1 (Primeiro Período). Projeto Prático - GRUPO 1: Daniel Coimbra, Eduardo Honório, Gabryell Coutinho, Guilherme Gomes, Lucyano Fellipe e Matheus Albuquerque.
+
+"""" 
+Créditos:
+
+Guilherme Gomes - Conversor de Distância
+Eduardo Honório/Gabryel Coutinho: Conversor de Temperatura
+
+Daniel Côimbra/Lucyano Fellipe - Conversor de moedas
+Matheus Albuquerque - Implementação da interface gráfica com o tKinter e gravação do vídeo. 
+
+"""
