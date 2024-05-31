@@ -1,217 +1,281 @@
-#Projeto de Medidas métricas 
-def celsius_para_fahrenheit(celsius):
-  fahrenheit = (celsius * 9) / 5 + 32
-  return fahrenheit
+import tkinter as tk
+from tkinter import messagebox
 
-def fahrenheit_para_celsius(fahrenheit):
-  celsius = (fahrenheit - 32) * 5 / 9
-  return celsius
+#CSTSI Unipê. P1 (Primeiro Período). Projeto Prático - GRUPO 1: Daniel Coimbra, Eduardo Honório, Gabryell Coutinho, Guilherme Gomes, Lucyano Fellipe e Matheus Albuquerque.
 
-def celsius_para_kelvin(celsius):
-  kelvin = celsius + 273.15
-  return kelvin
+#Conversor de Medidas Sistema Métrico
+def show_distance_conversion():
+    def calculate_distance_conversion():
+        from_unit = from_unit_var.get()
+        to_unit = to_unit_var.get()
+        value = distance_entry.get()
 
-def kelvin_para_celsius(kelvin):
-  celsius = kelvin - 273.15
-  return celsius
+        if not value:
+            messagebox.showerror("ERRO", "Por favor, insira um valor.")
+            return
 
-def fahrenheit_para_kelvin(fahrenheit):
-  kelvin = (fahrenheit + 459.67) * 5 / 9
-  return kelvin
+        try:
+            value = float(value)
+        except ValueError:
+            messagebox.showerror("ERRO", "Por favor, insira um valor numérico.")
+            return
 
-def kelvin_para_fahrenheit(kelvin):
-  fahrenheit = (kelvin - 273.15) * 9 / 5 + 32
-  return fahrenheit
+        conversion_factors = {
+            "Quilômetros": {"Metros": 1000, "Centímetros": 100000}, #De M para CM
+            "Metros": {"Quilômetros": 1/1000, "Centímetros": 100}, #DE KM para CM
+            "Centímetros": {"Quilômetros": 1/100000, "Metros": 1/100} #DE KM para M
+        }
 
+        if from_unit == to_unit:
+            result = value
+        else:
+            result = value * conversion_factors[from_unit][to_unit]
 
-print('''
-    [1] Distância
-    [2] Temperatura
-    [3] Moeda
-''')
-start = input('Qual opção você deseja? ').upper().strip() [0]
-print('=-' * 30)
+        result_label.config(text=f"Resultado: {result:.2f} {to_unit}")
 
-while True:
-    if start == '1':
-        print('''
-    [1] Quilômetros
-    [2] Metros
-    [3] Centímetros
-            ''')
-        print('=-' * 30)
-        time_1 = input('De qual unidade de medida você quer converter? ').upper().strip() [0]
-        print('=-' * 30)
-        if time_1 == '1': #De Quilômetros para Metros/Centímetros
-            medida = float(input('Digite sua medida em quilômetros: '))
-            print('=-' * 30)
-            print('''
-                [1] Metros
-                [2] Centímetros
-            ''')
-            time_2 = input('Para qual unidade de medida você quer converter? ').upper().strip() [0]
-            print('=-' * 30)
-            if time_2 == '1': 
-                metros = medida * 1000
-                print(f'{medida} quilômetros são {metros} metros!')
-                print('=-' * 30)
-            elif time_2 == '2':
-                centimetros = medida * 100000
-                print(f'{medida} quilômetros são {centimetros * 100} centímetros!')
-                print('=-' * 30)
-        elif time_1 == '2': #De Metros para Quilômetros/Centímetros
-            medida = float(input('Digite sua medida em metros: '))
-            print('=-' * 30)
-            print('''
-                [1] Quilômetros
-                [2] Centímetros
-            ''')
-            time_2 = input('Para qual unidade de medida você quer converter? ').upper().strip() [0]
-            print('=-' * 30)
-            if time_2 == '1': 
-                metros = medida / 1000
-                print(f'{medida} metros são {metros} quilômetros!')
-                print('=-' * 30)
-            elif time_2 == '2':
-                centimetros = medida * 100
-                print(f'{medida} metros são {centimetros} centímetros!')
-                print('=-' * 30)
-            break
-        elif time_1 == '3': #De Centímetros para Quilômetros/Metros
-            medida = float(input('Digite sua medida em centímetros: '))
-            print('=-' * 30)
-            print('''
-                [1] Quilômetros
-                [2] Metros
-            ''')
-            time_2 = input('Para qual unidade de medida você quer converter? ').upper().strip() [0]
-            print('=-' * 30)
-            if time_2 == '1': 
-                metros = medida / 100000
-                print(f'{medida} centímetros são {metros} quilômetros!')
-                print('=-' * 30)
-            elif time_2 == '2':
-                centimetros = medida / 100
-                print(f'{medida} centímetros são {centimetros} metros!')
-                print('=-' * 30)
-            break
-    elif start == '2':  # Opção Temperatura
-        print('''
-        [1] Celsius para Fahrenheit
-        [2] Fahrenheit para Celsius
-        [3] Celsius para Kelvin
-        [4] Kelvin para Celsius
-        [5] Fahrenheit para Kelvin
-        [6] Kelvin para Fahrenheit
-        ''')
-        opcao_temperatura = input('Qual conversão você deseja? ').upper().strip() [0]
-        print('=-' * 30)
+    distance_window = tk.Toplevel(root)
+    distance_window.title("Conversor de Distância")
+    distance_window.geometry("400x400")
 
-        if opcao_temperatura == '1':  # Celsius para Fahrenheit
-            medida_celsius = float(input('Digite a temperatura em Celsius: '))
-            resultado_fahrenheit = celsius_para_fahrenheit (medida_celsius)
-            print(f'{medida_celsius}°C equivalem a {resultado_fahrenheit:.2f}°F')
+    units = ["Quilômetros", "Metros", "Centímetros"]
 
-        if opcao_temperatura == "2": #Fahrenheit para Celsius
-            medida_fahrenheit = float(input("Digite a temperatura em fahrenheit: "))
-            resultado_celsius = fahrenheit_para_celsius(medida_fahrenheit)
-            print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_celsius:.2f}°C')
+    from_unit_var = tk.StringVar(distance_window)
+    from_unit_var.set("SELECIONE A UNIDADE:")
+    from_unit_menu = tk.OptionMenu(distance_window, from_unit_var, *units)
+    from_unit_menu.pack(pady=10)
 
-        elif opcao_temperatura == '3':  # Celsius para Kelvin
-            medida_celsius = float(input('Digite a temperatura em Celsius: '))
-            resultado_kelvin = celsius_para_kelvin(medida_celsius)
-            print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
+    to_unit_var = tk.StringVar(distance_window)
+    to_unit_var.set("CONVERTER PARA:")
+    to_unit_menu = tk.OptionMenu(distance_window, to_unit_var, *units)
+    to_unit_menu.pack(pady=10)
 
-        elif opcao_temperatura == '3':  # Celsius para Kelvin
-            medida_celsius = float(input('Digite a temperatura em Celsius: '))
-            resultado_kelvin = celsius_para_kelvin(medida_celsius)
-            print(f'{medida_celsius}°C equivalem a {resultado_kelvin:.2f}K')
+    distance_entry = tk.Entry(distance_window)
+    distance_entry.pack(pady=10)
 
-        elif opcao_temperatura == '4':  # Kelvin para Celsius
-            medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
-            resultado_celsius = kelvin_para_celsius(medida_kelvin)
-            print(f'{medida_kelvin:.2f}K equivalem a {resultado_celsius:.2f}°C')
+    calculate_button = tk.Button(distance_window, text="CONVERTER", command=calculate_distance_conversion)
+    calculate_button.pack(pady=10)
 
-        elif opcao_temperatura == '5':
-          medida_fahrenheit = float(input('Digite a temperatura em Fahrenheit: '))
-          resultado_kelvin = fahrenheit_para_kelvin(medida_fahrenheit)
-          print(f'{medida_fahrenheit:.2f}°F equivalem a {resultado_kelvin:.2f}K')
+    result_label = tk.Label(distance_window, text="")
+    result_label.pack(pady=10)
 
-        elif opcao_temperatura == '6':  # Kelvin para Fahrenheit
-          medida_kelvin = float(input('Digite a temperatura em Kelvin: '))
-          resultado_fahrenheit = kelvin_para_fahrenheit(medida_kelvin)
-          print(f'{medida_kelvin:.2f}K equivalem a {resultado_fahrenheit:.2f}°F')
-    
+    back_button = tk.Button(distance_window, text="VOLTAR", command=distance_window.destroy)
+    back_button.pack(pady=10)
 
-    if start == '3':  # Opção Moeda
-        print('''
-        ### CONVERTER DE: ###
-        [1] Real
-        [2] Euro
-        [3] Dolar
-        ''')
-        conveter_De = input('Selecione a opção que deseja fazer a conversão:\n ').upper().strip() [0]
-        print('=-' * 30)
-        
-        if conveter_De == '1':   # Opção em Real
-            valor = float(input('Digite o valor em Real que deseja converter:\n '))
+#Conversor de Temperaturas (C, K e F)
+def show_temperature_conversion():
+    def calculate_temperature_conversion():
+        from_unit = from_unit_var.get()
+        to_unit = to_unit_var.get()
+        value = temperature_entry.get()
 
-            print('=-' * 30)
-            print('''
-                [1] Euro
-                [2] Dolar
-            ''')
-            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
-            if converter_Para == '1':
-                euro = 5.80
-                res = valor / euro
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \nR${valor} convertido para Euro: €{res_formatado}')
-            elif converter_Para == '2':
-                dolar = 5.15
-                res = valor / dolar
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \nR${valor} convertido para Dolar: US${res_formatado}')
-        
-        elif conveter_De == '2':  #Opção em Euro
-            valor = float(input('Digite o valor em Euro que deseja converter:\n'))
+        if not value:
+            messagebox.showerror("ERRO", "Por favor, insira um valor.")
+            return
 
-            print('=-' * 30)
-            print('''
-                [1] Real
-                [2] Dolar
-            ''')
-            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
-            if converter_Para == '1':
-                real = 5.61
-                res = valor * real
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \n€{valor} convertido para Real: R${res_formatado}')
-            elif converter_Para == '2':
-                dolar = 1.09
-                res = valor * dolar
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \n€{valor} convertido para Dolar: US${res_formatado}')
-        
-        elif conveter_De == '3':  #Opção em Dolar
-            valor = float(input('Digite o valor em Dolar que deseja converter:\n'))
+        try:
+            value = float(value)
+        except ValueError:
+            messagebox.showerror("ERRO", "Por favor, insira um valor numérico.")
+            return
 
-            print('=-' * 30)
-            print('''
-                [1] Real
-                [2] Euro
-            ''')
-            converter_Para = input('Digite a moeda que deseja fazer a conversão: \n')
-            if converter_Para == '1':
-                real = 5.16
-                res = valor * real
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \nUS${valor} convertido para Real: R${res_formatado}')
-            elif converter_Para == '2':
-                euro = 0.92
-                res = valor * euro
-                res_formatado = "{:.2f}".format(res)
-                print(f'### RESUTALDO ### \nUS${valor} convertido para Euro: €{res_formatado}')
+        if from_unit == to_unit:
+            result = value
+        elif from_unit == "Celsius" and to_unit == "Fahrenheit": #Celsius para Fahren.
+            result = (value * 9/5) + 32
+        elif from_unit == "Fahrenheit" and to_unit == "Celsius": #Fahren. para Celsius
+            result = (value - 32) * 5/9
+        elif from_unit == "Celsius" and to_unit == "Kelvin": #Celsius para Kelvin
+            result = value + 273.15
+        elif from_unit == "Kelvin" and to_unit == "Celsius": #Kelvin para Celsius
+            result = value - 273.15
+        elif from_unit == "Fahrenheit" and to_unit == "Kelvin": #Fahren. para Kelvin
+            result = (value + 459.67) * 5/9
+        elif from_unit == "Kelvin" and to_unit == "Fahrenheit": #Kelvin para Fahren.
+            result = (value - 273.15) * 9/5 + 32
 
-    else:
-        ("Opçaõ inválida")
+        result_label.config(text=f"Resultado: {result:.2f} {to_unit}")
+
+    temperature_window = tk.Toplevel(root)
+    temperature_window.title("CONVERSOR DE TEMPERATURA")
+    temperature_window.geometry("400x400")
+
+    units = ["Celsius", "Fahrenheit", "Kelvin"]
+
+    from_unit_var = tk.StringVar(temperature_window)
+    from_unit_var.set("SELECIONE A UNIDADE:")
+    from_unit_menu = tk.OptionMenu(temperature_window, from_unit_var, *units)
+    from_unit_menu.pack(pady=10)
+
+    to_unit_var = tk.StringVar(temperature_window)
+    to_unit_var.set("CONVERTER PARA:")
+    to_unit_menu = tk.OptionMenu(temperature_window, to_unit_var, *units)
+    to_unit_menu.pack(pady=10)
+
+    temperature_entry = tk.Entry(temperature_window)
+    temperature_entry.pack(pady=10)
+
+    calculate_button = tk.Button(temperature_window, text="CONVERTER", command=calculate_temperature_conversion)
+    calculate_button.pack(pady=10)
+
+    result_label = tk.Label(temperature_window, text="")
+    result_label.pack(pady=10)
+
+    back_button = tk.Button(temperature_window, text="VOLTAR", command=temperature_window.destroy)
+    back_button.pack(pady=10)
+
+#Conversor de Moedas
+def show_currency_conversion():
+    def calculate_currency_conversion():
+        from_currency = from_currency_var.get()
+        to_currency = to_currency_var.get()
+        value = currency_entry.get()
+
+        if not value:
+            messagebox.showerror("ERRO", "Por favor, insira um valor.")
+            return
+
+        try:
+            value = float(value)
+        except ValueError:
+            messagebox.showerror("ERRO", "Por favor, insira um valor numérico.")
+            return
+
+        conversion_rates = { #Cotação do dia 30/05/2024
+            ("Real", "Dólar"): 0.19, #Real para Dólar
+            ("Real", "Euro"): 0.18, #Real para Euro
+            ("Dólar", "Real"): 5.20, #Dólar para Real
+            ("Dólar", "Euro"): 0.92, #Dólar para Euro
+            ("Euro", "Real"): 5.64, #Euro para Real
+            ("Euro", "Dólar"): 1.08, #Euro para Dólar
+            ("Real", "Real"): 1.00, #Real - Real
+            ("Dólar", "Dólar"): 1.00, #Dólar - Dólar
+            ("Euro", "Euro"): 1.00 #Euro - Euro
+        }
+
+        if (from_currency, to_currency) in conversion_rates:
+            rate = conversion_rates[(from_currency, to_currency)]
+            result = value * rate
+        else:
+            messagebox.showerror("ERRO", "Taxa de conversão não encontrada.")
+            return
+
+        result_label.config(text=f"Resultado: {result:.2f} {to_currency}")
+
+    currency_window = tk.Toplevel(root)
+    currency_window.title("CONVERSOR DE MOEDAS")
+    currency_window.geometry("400x400")
+
+    currencies = ["Real", "Dólar", "Euro"]
+
+    from_currency_var = tk.StringVar(currency_window)
+    from_currency_var.set("SELECIONE A MOEDA:")
+    from_currency_menu = tk.OptionMenu(currency_window, from_currency_var, *currencies)
+    from_currency_menu.pack(pady=10)
+
+    to_currency_var = tk.StringVar(currency_window)
+    to_currency_var.set("CONVERTER PARA:")
+    to_currency_menu = tk.OptionMenu(currency_window, to_currency_var, *currencies)
+    to_currency_menu.pack(pady=10)
+
+    currency_entry = tk.Entry(currency_window)
+    currency_entry.pack(pady=10)
+
+    calculate_button = tk.Button(currency_window, text="CONVERTER", command=calculate_currency_conversion)
+    calculate_button.pack(pady=10)
+
+    result_label = tk.Label(currency_window, text="")
+    result_label.pack(pady=10)
+
+    back_button = tk.Button(currency_window, text="VOLTAR", command=currency_window.destroy)
+    back_button.pack(pady=10)
+
+def show_calculator():
+    def calculate_operation():
+        num1 = num1_entry.get()
+        num2 = num2_entry.get()
+        operation = operation_var.get()
+
+        if not num1 or not num2:
+            messagebox.showerror("ERRO", "Por favor, insira ambos os números.")
+            return
+
+        try:
+            num1 = float(num1)
+            num2 = float(num2)
+        except ValueError:
+            messagebox.showerror("ERRO", "Por favor, insira valores numéricos válidos.")
+            return
+
+        if operation == "SOMA": #Soma
+            result = num1 + num2
+        elif operation == "SUBTRAÇÃO": #Subtração
+            result = num1 - num2
+        elif operation == "MULTIPLICAÇÃO": #Multiplicação
+            result = num1 * num2
+        elif operation == "DIVISÃO": #Divisão
+            if num2 == 0:
+                messagebox.showerror("ERRO", "Divisão por zero não é permitida!")
+                return
+            result = num1 / num2
+
+        result_label.config(text=f"Resultado: {result}")
+
+    calculator_window = tk.Toplevel(root)
+    calculator_window.title("CALCULADORA")
+    calculator_window.geometry("400x400")
+
+    num1_label = tk.Label(calculator_window, text="NÚMERO 1:")
+    num1_label.pack(pady=5)
+    num1_entry = tk.Entry(calculator_window)
+    num1_entry.pack(pady=5)
+
+    operation_label = tk.Label(calculator_window, text="OPERAÇÃO:")
+    operation_label.pack(pady=5)
+    operation_var = tk.StringVar(calculator_window)
+    operation_var.set("SOMA")
+    operation_menu = tk.OptionMenu(calculator_window, operation_var, "SOMA", "SUBTRAÇÃO", "MULTIPLICAÇÃO", "DIVISÃO")
+    operation_menu.pack(pady=5)
+
+    num2_label = tk.Label(calculator_window, text="NÚMERO 2:")
+    num2_label.pack(pady=5)
+    num2_entry = tk.Entry(calculator_window)
+    num2_entry.pack(pady=5)
+
+    calculate_button = tk.Button(calculator_window, text="CALCULAR", command=calculate_operation)
+    calculate_button.pack(pady=10)
+
+    result_label = tk.Label(calculator_window, text="")
+    result_label.pack(pady=5)
+
+    back_button = tk.Button(calculator_window, text="VOLTAR", command=calculator_window.destroy)
+    back_button.pack(pady=10)
+
+def confirm_exit():
+    answer = messagebox.askyesno("Finalizar", "Tem certeza que deseja encerrar o programa?")
+    if answer:
+        root.destroy()
+
+root = tk.Tk()
+root.title("CONVERSOR DE MEDIDAS E CALCULADORA")
+root.geometry("400x400")
+
+menu = tk.Menu(root)
+root.config(menu=menu)
+
+conversion_menu = tk.Menu(menu, tearoff=0)
+menu.add_cascade(label="CONVERTER MEDIDAS", menu=conversion_menu)
+conversion_menu.add_command(label="DISTÂNCIA", command=show_distance_conversion)
+conversion_menu.add_command(label="TEMPERATURA", command=show_temperature_conversion)
+conversion_menu.add_command(label="MOEDAS", command=show_currency_conversion)
+
+calculator_menu = tk.Menu(menu, tearoff=0)
+menu.add_cascade(label="CALCULADORA", menu=calculator_menu)
+calculator_menu.add_command(label="ABRIR", command=show_calculator)
+
+menu.add_separator()
+
+menu.add_command(label="FINALIZAR", command=confirm_exit)
+
+root.mainloop()
+
+#CSTSI Unipê. P1 (Primeiro Período). Projeto Prático - GRUPO 1: Daniel Coimbra, Eduardo Honório, Gabryell Coutinho, Guilherme Gomes, Lucyano Fellipe e Matheus Albuquerque.
